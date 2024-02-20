@@ -12,7 +12,11 @@ export default function ContactCounter() {
     <div className={css.wrapper}>
       <p className={css.text}>Total contacts:</p>
       <span className={css.total}> {countContacts}</span>
-      <button className={css.button} type="submit" onClick={() => dispatch(removeAllContact())}>
+      <button
+        className={css.button}
+        type="submit"
+        onClick={() => dispatch(removeAllContact())}
+      >
         All DELETE
       </button>
     </div>

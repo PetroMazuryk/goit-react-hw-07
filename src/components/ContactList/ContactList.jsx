@@ -12,7 +12,9 @@ export default function ContactList() {
   const handleRemoveContact = contactId => dispatch(removeContact(contactId));
 
   const filteredContactList = filter
-    ? contacts.contacts.filter(item => item.name.toLowerCase().includes(filter.toLowerCase()))
+    ? contacts.contacts.filter(item =>
+        item.name.toLowerCase().includes(filter.toLowerCase())
+      )
     : contacts.contacts;
 
   return (

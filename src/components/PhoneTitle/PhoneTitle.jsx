@@ -6,9 +6,15 @@ export default function PhoneTitle() {
   const itemRef = createRef(null);
 
   return (
-    <CSSTransition in={true} appear={true} timeout={500} classNames={css} nodeRef={itemRef}>
+    <CSSTransition
+      in={true}
+      appear={true}
+      timeout={500}
+      classNames={css}
+      nodeRef={itemRef}
+    >
       <h1 className={css.title} ref={itemRef}>
-        Phonebook 06
+        Phonebook 07
       </h1>
     </CSSTransition>
   );
