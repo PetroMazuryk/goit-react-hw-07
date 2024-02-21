@@ -8,6 +8,7 @@ import { selectAllContacts } from '../../redux/selectors';
 
 export default function ContactList() {
   const contacts = useSelector(selectAllContacts);
+
   // const dispatch = useDispatch();
 
   // const filter = useSelector(getFilter);
