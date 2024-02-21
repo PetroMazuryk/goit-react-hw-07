@@ -1,27 +1,30 @@
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Contact from '../Contact/Contact';
-import { useSelector, useDispatch } from 'react-redux';
-import { getContact, getFilter } from '../../redux/selectors';
-import { removeContact } from '../../redux/contactsSlice';
+import { useSelector } from 'react-redux';
+import { selectAllContacts } from '../../redux/selectors';
+// import { getContact, } from '../../redux/selectors';
+
+// import { removeContact } from '../../redux/contactsSlice';
 
 export default function ContactList() {
-  const dispatch = useDispatch();
-  const contacts = useSelector(getContact);
-  const filter = useSelector(getFilter);
+  const contacts = useSelector(selectAllContacts);
+  // const dispatch = useDispatch();
 
-  const handleRemoveContact = contactId => dispatch(removeContact(contactId));
+  // const filter = useSelector(getFilter);
 
-  const filteredContactList = filter
-    ? contacts.contacts.filter(item =>
-        item.name.toLowerCase().includes(filter.toLowerCase())
-      )
-    : contacts.contacts;
+  // const handleRemoveContact = contactId => dispatch(removeContact(contactId));
+
+  // const filteredContactList = filter
+  //   ? contacts.contacts.filter(item =>
+  //       item.name.toLowerCase().includes(filter.toLowerCase())
+  //     )
+  //   : contacts.contacts;
 
   return (
     <TransitionGroup>
-      {filteredContactList.map(contact => (
+      {contacts.map(contact => (
         <CSSTransition key={contact.id} timeout={500} classNames="contact">
-          <Contact contact={contact} onDelete={handleRemoveContact} />
+          <Contact contact={contact} />
         </CSSTransition>
       ))}
     </TransitionGroup>
