@@ -8,6 +8,7 @@ import PhoneTitle from './components/PhoneTitle/PhoneTitle.jsx';
 import ContactCounter from './components/ContactCounter/ContactCounter.jsx';
 import Notification from './components/Notification/Notification.jsx';
 import { fetchContacts } from './redux/operations.js';
+import Spinner from './components/Spinner/Spinner.jsx';
 import {
   selectAllContacts,
   selectIsLoading,
@@ -17,7 +18,6 @@ import {
 export const App = () => {
   const dispatch = useDispatch();
   const contactsAll = useSelector(selectAllContacts);
-
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
 
@@ -43,10 +43,17 @@ export const App = () => {
             <ContactList />
           </>
         ) : (
-          <Notification message="There is no added contacts"></Notification>
+          <>
+            {!error && (
+              <Notification message="There is no added contacts"></Notification>
+            )}
+
+            {error && <Notification error={error} />}
+          </>
         )}
       </Section>
-      {isLoading && !error && <b>Request in progress...</b>}
+
+      {isLoading && !error && <Spinner />}
     </>
   );
 };
