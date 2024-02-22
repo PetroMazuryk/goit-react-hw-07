@@ -1,9 +1,10 @@
 import { Formik, Form, Field } from 'formik';
 import { useId } from 'react';
+
 import { useSelector, useDispatch } from 'react-redux';
-import { addContact } from '../../redux/contactsSlice';
-import { getContact } from '../../redux/selectors';
-import { nanoid } from 'nanoid';
+import { addContact } from '../../redux/operations';
+import { selectAllContacts } from '../../redux/selectors';
+
 import toast, { Toaster } from 'react-hot-toast';
 
 import * as Yup from 'yup';
@@ -18,7 +19,7 @@ const ContactSchema = Yup.object().shape({
   number: Yup.string()
     .matches(/^[0-9]+$/, 'Must be only digits')
     .min(5, 'Must be exactly 5 digits')
-    .max(5, 'Must be exactly 5 digits')
+    .max(8, 'Must be exactly 8 digits')
     .required('Required'),
 });
 
@@ -31,19 +32,21 @@ export default function ContactForm() {
   const nameFieldId = useId();
   const numberFieldId = useId();
   const dispatch = useDispatch();
-  const contacts = useSelector(getContact);
+  const contacts = useSelector(selectAllContacts);
 
   const handleFormSubmit = (values, { resetForm }) => {
-    const { name, number } = values;
+    const newContact = {
+      name: values.name,
+      number: values.number,
+    };
 
-    const contactAlreadyExists = contacts.contacts.some(
-      item => item.name === name
+    const contactAlreadyExists = contacts.find(
+      contact => contact.name === newContact.name
     );
 
     if (contactAlreadyExists) {
       toast.error(`A contact with the name "${name}" already exists`);
     } else {
-      const newContact = { id: nanoid(10), name, number };
       dispatch(addContact(newContact));
       resetForm();
     }
