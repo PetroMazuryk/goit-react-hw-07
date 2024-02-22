@@ -35,18 +35,16 @@ export default function ContactForm() {
   const contacts = useSelector(selectAllContacts);
 
   const handleFormSubmit = (values, { resetForm }) => {
-    const newContact = {
-      name: values.name,
-      number: values.number,
-    };
+    const { name, number } = values;
 
     const contactAlreadyExists = contacts.find(
-      contact => contact.name === newContact.name
+      contact => contact.name === name
     );
 
     if (contactAlreadyExists) {
       toast.error(`A contact with the name "${name}" already exists`);
     } else {
+      const newContact = { name, number };
       dispatch(addContact(newContact));
       resetForm();
     }
