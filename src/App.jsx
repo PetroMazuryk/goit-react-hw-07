@@ -32,9 +32,11 @@ export const App = () => {
         <ContactForm />
       </Section>
 
-      <Section title="Find contacts by name">
-        <SearchBar />
-      </Section>
+      {contactsAll.length > 0 && (
+        <Section title="Find contacts by name">
+          <SearchBar />
+        </Section>
+      )}
 
       <Section title="Contact List">
         {contactsAll.length > 0 ? (
@@ -45,7 +47,9 @@ export const App = () => {
         ) : (
           <>
             {!error && (
-              <Notification message="There is no added contacts"></Notification>
+              <>
+                <Notification message="There is no added contacts"></Notification>
+              </>
             )}
 
             {error && <Notification error={error} />}
