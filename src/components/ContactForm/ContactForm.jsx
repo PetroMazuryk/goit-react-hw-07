@@ -38,7 +38,7 @@ export default function ContactForm() {
     const { name, number } = values;
 
     const contactAlreadyExists = contacts.find(
-      contact => contact.name === name
+      contact => contact.name.toLowerCase() === name.toLowerCase()
     );
 
     if (contactAlreadyExists) {
